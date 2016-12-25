@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/home_banner_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_hos_banner" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/home_banner_img"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/large_blank"
+            android:layout_marginTop="@dimen/large_blank"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/home_menu_pay"
+                style="@style/TabButtonStyle"
+                android:drawableTop="@mipmap/ic_home_pay"
+                android:text="诊间缴费"
+                android:textColor="@color/title_color_primary"
+                android:textSize="@dimen/tx_large_size" />
+
+            <TextView
+                android:id="@+id/home_menu_map"
+                style="@style/TabButtonStyle"
+                android:drawableTop="@mipmap/ic_home_map"
+                android:text="医院导航"
+                android:textColor="@color/title_color_primary"
+                android:textSize="@dimen/tx_large_size" />
+
+            <TextView
+                android:id="@+id/home_menu_report"
+                style="@style/TabButtonStyle"
+                android:drawableTop="@mipmap/ic_home_report"
+                android:text="报告查询"
+                android:textColor="@color/title_color_primary"
+                android:textSize="@dimen/tx_large_size" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/home_res_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_normal_size"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/selector_btn_primary"
+            android:gravity="center"
+            android:text="预约挂号"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tx_huge_size" />
+    </LinearLayout>
+
+</RelativeLayout>

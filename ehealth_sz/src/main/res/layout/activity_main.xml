@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ui_bg_color">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/tool_bar_main" />
+
+    <RadioGroup
+        android:id="@+id/main_tab_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/light_gray"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <RadioButton
+            android:id="@+id/main_tab_home"
+            style="@style/TabButtonStyle"
+            android:checked="true"
+            android:drawableTop="@drawable/selector_tab_home"
+            android:text="首页"
+            android:textColor="@color/selector_tab_tx_color" />
+
+        <RadioButton
+            android:id="@+id/main_tab_mine"
+            style="@style/TabButtonStyle"
+            android:drawableTop="@drawable/selector_tab_mine"
+            android:text="我的"
+            android:textColor="@color/selector_tab_tx_color" />
+    </RadioGroup>
+
+    <com.focuschina.ehealth_lib.view.widget.NoScrollViewPager
+        android:id="@+id/main_tab_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/main_tab_group"
+        android:layout_below="@id/toolbar" />
+
+</RelativeLayout>

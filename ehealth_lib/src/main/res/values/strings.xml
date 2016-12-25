@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">EHealth_Lib</string>
+    <string name="net_error_msg">网络异常，请稍后再试</string>
+</resources>

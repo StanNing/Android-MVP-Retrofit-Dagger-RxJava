@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FD9043</color>
+    <color name="colorPrimaryDark">#E48D2F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="green">#50bd44</color>
+    <color name="transparent">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="red">#E10601</color>
+    <color name="yellow">#FFB624</color>
+
+    <!--app-->
+    <color name="divider_line">#CCCCCC</color>
+
+    <color name="title_color_primary">#4d585c</color>
+    <color name="content_color_primary">#8F8F8F</color>
+
+    <color name="ui_bg_color">#F0F2F5</color>
+    <color name="light_gray">#F7F7F7</color>
+
+
+</resources>
