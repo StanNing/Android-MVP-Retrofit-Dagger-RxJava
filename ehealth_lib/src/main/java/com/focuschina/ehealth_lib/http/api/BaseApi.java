@@ -31,7 +31,7 @@ public class BaseApi {
                                                   @Query("timestamp") String timestamp);
 
         String GET_PRODUCT_PARAM = "getProductParam"; //获取公共参数，在线配置（key & value）
-        @POST Observable<Response<ProductParam<String[]>>> getProductParam(@Url String url, @Body ProductParam.QueryParam qp);
+        @POST Observable<Response<ProductParam<String>>> getProductParam(@Url String url, @Body ProductParam.QueryParam qp);
 
         String SEARCH_DEPTMENT_INFO_NEW = "searchDeptmentInfoNew";
         @POST Observable<Response<Dep>> searchDeptmentInfoNew(@Url String url, @Body Dep.QueryParam qp);
