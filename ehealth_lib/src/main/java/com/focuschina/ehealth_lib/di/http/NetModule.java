@@ -1,6 +1,7 @@
 package com.focuschina.ehealth_lib.di.http;
 
 import com.focuschina.ehealth_lib.config.AppConfig;
+import com.focuschina.ehealth_lib.util.AppUtil;
 import com.focuschina.ehealth_lib.util.CodeUtil;
 import com.focuschina.ehealth_lib.util.LogUtil;
 
@@ -46,13 +47,18 @@ public class NetModule {
     private static final Interceptor REWRITE_NET_INTERCEPTOR = chain -> {
         Request originalRequest = chain.request(); //原始请求
 
+        String[] baseParam = getBaseParam(originalRequest.url().toString());
         String orgReq = bodyToString(originalRequest.body()); //原始入参
-        LogUtil.i(LogUtil.TAG_URL, "REQ:" + orgReq);
-        String encodeReqParam = CodeUtil.encode(orgReq); //入参加密
+        LogUtil.i(LogUtil.TAG_URL, "REQ:" + baseParam[1] + orgReq);
+        String encodeReqParam = CodeUtil.encode(baseParam[1] + orgReq); //入参加密
 
         RequestBody encodeRequestBody = RequestBody.create(originalRequest.body().contentType(), encodeReqParam); //1
 
-        Request encodeRequest = originalRequest.newBuilder().method(originalRequest.method(), encodeRequestBody).build();
+        Request encodeRequest = originalRequest
+                .newBuilder()
+                .url(baseParam[0]) //再次重定向地址
+                .method(originalRequest.method(), encodeRequestBody)
+                .build();
 
         Response originalResponse = chain.proceed(encodeRequest);
 
@@ -64,6 +70,24 @@ public class NetModule {
                 .body(ResponseBody.create(originalResponse.body().contentType(), decodedRsp))
                 .build();
     };
+
+    /**
+     * 对于传入的地址做改造，拆分成2部分，基础参数部分放到后面的业务参数中一起加密处理
+     * @param url 接口地址 + 公共参数
+     * @return 返回 String[] - [0]:地址； [1]:公共参数
+     */
+    private static String[] getBaseParam(String url) {
+        String[] baseParam = new String[]{"", ""};
+        if (!AppUtil.isEmpty(url)) {
+            try {
+                String[] split = url.split("\\?");
+                if (split.length == 2) baseParam = split;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return baseParam;
+    }
 
     private static String bodyToString(final RequestBody request) {
         try {
@@ -135,7 +159,8 @@ public class NetModule {
      */
     @Singleton
     @Provides
-    @UnEncrypted //非加密
+    @UnEncrypted
+    //非加密
     Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         String severUrl = AppConfig.BUILD ? SERVER_CONFIG_URL : SERVER_CONFIG_URL_P;
         return new Retrofit.Builder()

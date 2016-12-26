@@ -99,25 +99,37 @@ public class AppUtil {
     }
 
     /**
-     * 返回当前程序版本名
-     *
      * @param context
-     * @return
+     * @return 返回当前程序版本名
      */
     public static String getAppVersionName(Context context) {
         String versionName = "1.00.00";
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
-            versionName = pi.versionName;
-            if (versionName == null || versionName.length() <= 0) {
-                return versionName;
+            if (null != pi.versionName && pi.versionName.length() > 0) {
+                versionName = pi.versionName;
             }
         } catch (Exception e) {
             LogUtil.err(e);
         }
         return versionName;
     }
+
+    public static String getPackageNames(Context context) {
+        String packageName = "";
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            if (null != pi.packageName) {
+                packageName = pi.packageName;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            LogUtil.err(e);
+        }
+        return packageName;
+    }
+
 
     /***
      * 获得手机设备的串号
@@ -346,6 +358,7 @@ public class AppUtil {
 
     /**
      * 判断是否支持特殊字符
+     *
      * @param str
      * @return
      * @throws PatternSyntaxException

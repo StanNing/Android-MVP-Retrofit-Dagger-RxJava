@@ -1,7 +1,5 @@
 package com.focuschina.ehealth_lib.model;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * @ClassName: Response
  * @Description: 联网接口回调数据统一格式外层
@@ -11,13 +9,9 @@ import com.google.gson.annotations.SerializedName;
  * @param <T>
  */
 public class Response<T> {
-    @SerializedName("rspCode")
     private int rspCode;
-    @SerializedName("rspMsg")
     private String rspMsg;
-    @SerializedName("oprTime")
     private String oprTime;
-    @SerializedName("rspData")
     private T rspData;
     public Response(){}
 

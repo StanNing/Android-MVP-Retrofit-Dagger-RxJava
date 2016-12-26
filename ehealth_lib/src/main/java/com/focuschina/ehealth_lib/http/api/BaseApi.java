@@ -2,6 +2,7 @@ package com.focuschina.ehealth_lib.http.api;
 
 import com.focuschina.ehealth_lib.model.HSPSService;
 import com.focuschina.ehealth_lib.model.Response;
+import com.focuschina.ehealth_lib.model.common.ProductParam;
 import com.focuschina.ehealth_lib.model.hosdata.Dep;
 
 import retrofit2.http.Body;
@@ -28,6 +29,9 @@ public class BaseApi {
                                                   @Query("pltId") String pltId,
                                                   @Query("version") String version,
                                                   @Query("timestamp") String timestamp);
+
+        String GET_PRODUCT_PARAM = "getProductParam"; //获取公共参数，在线配置（key & value）
+        @POST Observable<Response<ProductParam<String[]>>> getProductParam(@Url String url, @Body ProductParam.QueryParam qp);
 
         String SEARCH_DEPTMENT_INFO_NEW = "searchDeptmentInfoNew";
         @POST Observable<Response<Dep>> searchDeptmentInfoNew(@Url String url, @Body Dep.QueryParam qp);

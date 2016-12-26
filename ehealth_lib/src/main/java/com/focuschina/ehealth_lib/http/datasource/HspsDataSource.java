@@ -60,7 +60,7 @@ public class HspsDataSource implements BaseDataSource<HSPSService> {
     @Override
     public void start() {
         Subscription startSub = Async.start(retrofit.create(BaseApi.ServiceApi.class).downloadMainifest(
-                AppConfig.APP_PRODUCT_ID_EH_NJ,
+                appConfig.getProductId(),
                 AppConfig.APP_PLT_ID_ANDROID,
                 appConfig.getVersion(),
                 getSource().getTimestamp() //获取本地更新时间戳，用于跟服务效验比对是否需要更新
@@ -93,6 +93,32 @@ public class HspsDataSource implements BaseDataSource<HSPSService> {
             mHSPSService = null; //清除配置服务缓存
             spHelper.setHSPSServiceToLocal(HSPSJsonStr);
         }
+    }
+
+    /**
+     * 构建基础数据请求地址
+     *
+     * @param paramKey 请求参数key
+     * @return 返回请求服务地址
+     */
+    public String baseUrl(String paramKey) {
+        String baseUrl = "";
+        if (null != getSource().getCoreservice()) {
+            try {
+                baseUrl = getSource().getServerurl() + getSource().getCoreservice().get(paramKey).getAsString();
+                baseUrl += "?"
+                        + "productId=" + appConfig.getProductId()
+                        + "&pltId=" + AppConfig.APP_PLT_ID_ANDROID
+                        + "&version=" + "1.00.00"
+                        + "&sversion=" + "1.00.00"
+                        + "&sessionid=" + ""
+                        + "&paramMethod=" + paramKey
+                        + "&paramContent=";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return baseUrl;
     }
 
     /**

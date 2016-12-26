@@ -83,28 +83,4 @@ public class HSPSService implements Serializable {
     public void setLatestversion(LatestVersion latestversion) {
         this.latestversion = latestversion;
     }
-
-    /**
-     * 构建基础数据请求地址
-     *
-     * @param paramKey 请求参数key
-     * @return 返回请求服务地址
-     */
-    public String baseUrl(String paramKey) {
-        String baseUrl = "";
-        if (null != coreservice) {
-            try {
-                baseUrl = serverurl + coreservice.get(paramKey).getAsString();
-                baseUrl += "?"
-                        + "productId=" + AppConfig.APP_PRODUCT_ID_EH_NJ
-                        + "&pltId=" + AppConfig.APP_PLT_ID_ANDROID
-                        + "&version=" + "1.00.00"
-                        + "&sversion=" + "1.00.00"
-                        + "&sessionid=" + "";
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return baseUrl;
-    }
 }
