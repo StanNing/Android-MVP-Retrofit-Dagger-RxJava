@@ -14,10 +14,20 @@ import com.focuschina.ehealth_lib.util.AppUtil;
  */
 public class AppConfig {
 
+    public static final String APP_PLT_ID_ANDROID = "02";
+    private static final String APP_PRODUCT_ID_EH_SZ = "020";
+
+    private static final String APP_PKG_NAME_NJ = "com.focustech.medical"; // 健康南京App
+    private static final String APP_PKG_NAME_GL = "com.focustech.mmgl";    // 鼓楼医院App
+    private static final String APP_PKG_NAME_SZ = "com.focustech.jshtcm";    // 省中医院App
+
+    public static final String HOS_CODE_SHENGZHONG = "13102"; // 省中医院编码13102
+
     private SpHelper spHelper;
     private Context appContext;
     private String pkgName;
     private String productId;
+    private String hosCode;
 
     public AppConfig(SpHelper spHelper, Context appContext) {
         this.spHelper = spHelper;
@@ -43,14 +53,11 @@ public class AppConfig {
         return !BUILD && DEBUG;
     }
 
-    public static final String APP_PLT_ID_ANDROID = "02";
-    private static final String APP_PRODUCT_ID_EH_SZ = "020";
-
-    private static final String APP_PKG_NAME_NJ = "com.focustech.medical"; // 健康南京App
-    private static final String APP_PKG_NAME_GL = "com.focustech.mmgl";    // 鼓楼医院App
-    private static final String APP_PKG_NAME_SZ = "com.focustech.jshtcm";    // 省中医院App
-
-
+    /**
+     * 获取版本号
+     *
+     * @return app version
+     */
     public String getVersion() {
         return AppUtil.getAppVersionName(appContext);
     }
@@ -69,6 +76,22 @@ public class AppConfig {
             }
         }
         return productId;
+    }
+
+    /**
+     * 获取医院编码
+     *
+     * @return hospitalCode
+     */
+    public String getHosCode() {
+        if (null == hosCode) {
+            switch (pkgName) {
+                case APP_PKG_NAME_SZ:
+                    hosCode = HOS_CODE_SHENGZHONG;
+                    break;
+            }
+        }
+        return hosCode;
     }
 
 }

@@ -2,8 +2,11 @@ package com.focuschina.ehealth_lib.http.api;
 
 import com.focuschina.ehealth_lib.model.HSPSService;
 import com.focuschina.ehealth_lib.model.Response;
+import com.focuschina.ehealth_lib.model.TBody;
 import com.focuschina.ehealth_lib.model.common.ProductParam;
 import com.focuschina.ehealth_lib.model.hosdata.Dep;
+
+import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -34,13 +37,13 @@ public class BaseApi {
         @POST Observable<Response<ProductParam<String>>> getProductParam(@Url String url, @Body ProductParam.QueryParam qp);
 
         String SEARCH_DEPTMENT_INFO_NEW = "searchDeptmentInfoNew";
-        @POST Observable<Response<Dep>> searchDeptmentInfoNew(@Url String url, @Body Dep.QueryParam qp);
+        @POST Observable<Response<TBody<List<Dep>>>> searchDeptmentInfoNew(@Url String url, @Body Dep.QueryParam qp);
     }
 
     //2.4 用户中心
     public interface AccountApi {
         String USER_REGISTER = "userRegister"; //2.4.1 用户注册
-//        @POST Observable<Response<UserRegister>> userRegister(@Url String url, @Body UserRegister.QueryParam qp);
+//        @POST Observable<Response<UserRegister>> userRegister(@Url String url, @TBody UserRegister.QueryParam qp);
     }
 
 }
