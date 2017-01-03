@@ -32,4 +32,5 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.4'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile project(':ehealth_lib')
+    testCompile 'junit:junit:4.12'
 }

@@ -14,54 +14,21 @@
 
         <include layout="@layout/view_home_header" />
 
-        <RelativeLayout
-            android:id="@+id/home_dep_more_rl"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:visibility="visible">
+            android:padding="10dp"
+            android:text="特色科室"
+            android:textColor="@color/content_color_primary"
+            android:textSize="@dimen/tx_normal_size" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="特色科室"
-                android:textColor="@color/content_color_primary"
-                android:textSize="@dimen/tx_normal_size" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:drawablePadding="@dimen/normal_blank"
-                android:drawableRight="@mipmap/ic_arrow_right"
-                android:padding="10dp"
-                android:text="更多"
-                android:textColor="@color/content_color_primary"
-                android:textSize="@dimen/tx_normal_size"
-                android:visibility="gone" />
-        </RelativeLayout>
-
-        <com.focuschina.ehealth_lib.view.widget.NoScrollGridView
-            android:id="@+id/home_gv"
+        <LinearLayout
+            android:id="@+id/home_dep_main_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:descendantFocusability="blocksDescendants"
-            android:divider="@null"
-            android:horizontalSpacing="1dp"
-            android:numColumns="2"
-            android:paddingTop="1dp"
-            android:scrollbars="none"
-            android:verticalSpacing="1dp"
-            android:visibility="visible" />
-
-        <!--<include-->
-        <!--android:id="@+id/view_no_data"-->
-        <!--layout="@layout/view_no_data"-->
-        <!--android:visibility="gone"></include>-->
+            android:orientation="vertical" />
 
     </LinearLayout>
 </ScrollView>

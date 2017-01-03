@@ -7,6 +7,7 @@
     <!--app-->
     <dimen name="normal_blank">10dp</dimen>
     <dimen name="large_blank">15dp</dimen>
+    <dimen name="huge_blank">20dp</dimen>
 
     <dimen name="tx_small_size">14sp</dimen>
     <dimen name="tx_normal_size">16sp</dimen>

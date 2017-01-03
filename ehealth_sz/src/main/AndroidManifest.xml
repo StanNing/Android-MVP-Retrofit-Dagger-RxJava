@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.focuschina.ehealth_sz">
 
+    <!--网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--外部存储读权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.focuschina.ehealth_lib.EhApplication"
@@ -16,7 +21,6 @@
 
         <activity
             android:name=".ui.splash.LoadingActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +28,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.home.MainTabActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".ui.home.MainTabActivity" />
 
     </application>
 

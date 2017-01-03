@@ -42,16 +42,11 @@ public class MineFragment extends BaseFragment implements MainContract.MineView 
 
     @Override
     protected void initData() {
-        minePresenter.doTest();
+
     }
 
     @Override
     public void destroy() {
 
-    }
-
-    @Override
-    public void showMineView() {
-        showMsg("第二页显示完毕");
     }
 }

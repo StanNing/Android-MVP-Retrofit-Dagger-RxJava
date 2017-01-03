@@ -96,6 +96,13 @@ public class MainTabActivity extends BaseToolBarActivity implements MainContract
     }
 
     @Override
+    protected String getTitleTx() {
+        setTitleInCenter();
+        hideHomeAsUp();
+        return getString(R.string.app_name);
+    }
+
+    @Override
     protected void initInjector() {
         super.initInjector();
         DaggerMainComponent.Builder builder = DaggerMainComponent.builder()

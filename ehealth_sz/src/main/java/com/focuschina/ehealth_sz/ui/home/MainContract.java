@@ -1,7 +1,10 @@
 package com.focuschina.ehealth_sz.ui.home;
 
+import com.focuschina.ehealth_lib.base.BasePresenter;
 import com.focuschina.ehealth_lib.base.BaseView;
-import com.focuschina.ehealth_lib.base.TaskPresenter;
+import com.focuschina.ehealth_lib.model.hosdata.Dep;
+
+import java.util.List;
 
 /**
  * Copyright (C) Focus Technology
@@ -18,18 +21,21 @@ public interface MainContract {
     }
 
     interface HomeView extends BaseView {
-        void showHomeView();
+        void showDepList(List<Dep> depList); //展现科室列表
+
+        void showEachDepView(int index, Dep dep); //展现单个科室
     }
 
     interface MineView extends BaseView {
-        void showMineView();
+
     }
 
-    abstract class AbHomePresenter extends TaskPresenter<HomeView> {
-        abstract void doTest();
+    interface IHomePresenter extends BasePresenter<HomeView> {
+        void fetchDepListData(); //获取首页展示的科室列表数据
+
+        void fetchEachDepData(List<Dep> depList); //获取单个科室数据
     }
 
-    abstract class AbMinePresenter extends TaskPresenter<MineView> {
-        abstract void doTest();
+    interface IMinePresenter extends BasePresenter<MineView> {
     }
 }
