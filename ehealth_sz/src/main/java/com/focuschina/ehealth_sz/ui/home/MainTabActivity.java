@@ -128,7 +128,7 @@ public class MainTabActivity extends BaseToolBarActivity implements MainContract
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {// 处理返回按钮退出
             if (currentTimeMillis() - mExitTime > INTERVAL) {
-                showToast("再按一次返回键,可直接退出程序");
+                showMsg("再按一次返回键,可直接退出程序");
                 mExitTime = currentTimeMillis();
             } else {
                 this.finish();
