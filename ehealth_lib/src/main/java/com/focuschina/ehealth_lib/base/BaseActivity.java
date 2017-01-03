@@ -104,13 +104,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     protected abstract void onSingleClick(View v);
 
-    protected void showToast(String content) {
-        if (null != toast) {
-            toast.setText(content);
-            toast.show();
-        }
-    }
-
     @Override
     public void showProgress() {
 
@@ -129,7 +122,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         } catch (Exception e) {
             e.printStackTrace();
         }
-        showToast(msg);
+        if (null != toast) {
+            toast.setText(msg);
+            toast.show();
+        }
     }
 
     @Override

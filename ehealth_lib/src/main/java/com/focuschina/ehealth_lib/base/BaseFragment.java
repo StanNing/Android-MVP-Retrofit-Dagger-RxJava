@@ -85,13 +85,6 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         }
     }
 
-    protected void showToast(String content) {
-        if (null != toast) {
-            toast.setText(content);
-            toast.show();
-        }
-    }
-
     @Override
     public void showProgress() {
 
@@ -110,7 +103,10 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        showToast(msg);
+        if (null != toast) {
+            toast.setText(msg);
+            toast.show();
+        }
     }
 
     @Override
