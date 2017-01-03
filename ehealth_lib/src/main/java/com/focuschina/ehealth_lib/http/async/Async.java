@@ -2,6 +2,7 @@ package com.focuschina.ehealth_lib.http.async;
 
 import android.support.annotation.NonNull;
 
+import com.focuschina.ehealth_lib.base.BaseView;
 import com.focuschina.ehealth_lib.model.Response;
 
 import rx.Observable;
@@ -27,7 +28,8 @@ public class Async {
      * @param <T>
      * @return
      */
-    public static <T> Subscription start(Observable<T> observable, final AsyncHandler<T> asyncHandler) {
+    public static <T, V extends BaseView> Subscription start(Observable<T> observable,
+                                                             final AsyncHandler<T, V> asyncHandler) {
         return observable
                 .subscribeOn(Schedulers.io()) //被订阅者发生的线程
                 .observeOn(AndroidSchedulers.mainThread()) //消费者运行的线程
@@ -44,8 +46,8 @@ public class Async {
      * @param <T>
      * @return
      */
-    public static <T> Subscription start(Observable<T> observable) {
-        final AsyncHandler<T> asyncHandler = new AsyncHandler<T>() { //无需重写回调处理
+    public static <T, V extends BaseView> Subscription start(Observable<T> observable) {
+        final AsyncHandler<T, V> asyncHandler = new AsyncHandler<T, V>() { //无需重写回调处理
         };
         return observable
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,9 +69,9 @@ public class Async {
      * @param <K>
      * @return
      */
-    public static <T, K> Subscription composite(final AsyncHandler<Response<K>> asyncHandler,
-                                                       @NonNull Observable<Response<T>> obT,
-                                                       @NonNull final Observable<Response<K>> obK) {
+    public static <T, K, V extends BaseView> Subscription composite(final AsyncHandler<Response<K>, V> asyncHandler,
+                                                                    @NonNull Observable<Response<T>> obT,
+                                                                    @NonNull final Observable<Response<K>> obK) {
         return obT
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

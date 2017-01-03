@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import rx.Observable;
+
 /**
  * Copyright (C) Focus Technology
  *
@@ -142,13 +144,19 @@ public abstract class BaseFragment extends Fragment implements BaseView {
      * 绑定控件点击监听事件,限制2秒内重复点击
      *
      * @param v 点击视图
+     * @return 返回Observable<Void>,需要自己实现回调监听
+     */
+    protected Observable<Void> bindClickEventOb(View v) {
+        return RxView.clicks(v).throttleFirst(BaseActivity.defaultWindowDuration, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 绑定控件点击监听事件,限制2秒内重复点击
+     *
+     * @param v 点击视图
      */
     protected void bindClickEvent(View v) {
-        RxView.clicks(v)
-                .throttleFirst(BaseActivity.defaultWindowDuration, TimeUnit.SECONDS)
-                .subscribe(aVoid -> {
-                    onSingleClick(v);
-                });
+        bindClickEventOb(v).subscribe(aVoid -> onSingleClick(v));
     }
 
     protected abstract void onSingleClick(View v);

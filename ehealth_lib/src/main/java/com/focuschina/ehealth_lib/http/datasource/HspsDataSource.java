@@ -1,5 +1,6 @@
 package com.focuschina.ehealth_lib.http.datasource;
 
+import com.focuschina.ehealth_lib.base.BaseView;
 import com.focuschina.ehealth_lib.config.AppConfig;
 import com.focuschina.ehealth_lib.config.SpHelper;
 import com.focuschina.ehealth_lib.di.http.UnEncrypted;
@@ -64,7 +65,7 @@ public class HspsDataSource implements BaseDataSource<HSPSService> {
                 AppConfig.APP_PLT_ID_ANDROID,
                 appConfig.getVersion(),
                 getSource().getTimestamp() //获取本地更新时间戳，用于跟服务效验比对是否需要更新
-        ), new AsyncHandler<HSPSService>() { //实际此处可以用jsonObject替代HSPS泛型对象，可以减少一次转换
+        ), new AsyncHandler<HSPSService, BaseView>() { //实际此处可以用jsonObject替代HSPS泛型对象，可以减少一次转换
             @Override
             public void onNext(HSPSService hspsService) {
                 save(hspsService);

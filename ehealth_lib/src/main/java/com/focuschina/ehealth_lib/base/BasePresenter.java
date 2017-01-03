@@ -16,10 +16,6 @@
 
 package com.focuschina.ehealth_lib.base;
 
-import com.focuschina.ehealth_lib.http.TasksRepository;
-
-import rx.Subscription;
-
 /**
  *
  */
@@ -28,9 +24,4 @@ public interface BasePresenter<T extends BaseView> {
     void attachView(T view);
 
     void detachView();
-
-    void subscribe(TasksRepository tasksRepository, Subscription subscription);
-
-    void unsubscribe(TasksRepository tasksRepository);
-
 }
