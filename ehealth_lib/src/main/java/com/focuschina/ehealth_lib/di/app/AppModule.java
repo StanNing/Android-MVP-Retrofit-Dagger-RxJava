@@ -56,6 +56,7 @@ public class AppModule {
 
     @Provides
     @Singleton
+    @ForApp
     BmpUtil provideBmpUtil(Context context) {
         return new BmpUtil(context);
     }

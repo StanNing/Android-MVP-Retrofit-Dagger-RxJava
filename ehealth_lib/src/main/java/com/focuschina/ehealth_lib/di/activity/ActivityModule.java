@@ -4,9 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.focuschina.ehealth_lib.http.TasksRepository;
+import com.focuschina.ehealth_lib.task.TasksRepository;
 import com.focuschina.ehealth_lib.util.BmpUtil;
-import com.focuschina.ehealth_lib.view.customlistener.FastScrollListener;
 
 import dagger.Module;
 import dagger.Provides;
@@ -48,7 +47,8 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    FastScrollListener provideFastScrollListener(BmpUtil bmpUtil) {
-        return new FastScrollListener(activity, bmpUtil);
+    @ForActivity
+    BmpUtil provideBmpUtil(Activity activity) {
+        return new BmpUtil(activity);
     }
 }

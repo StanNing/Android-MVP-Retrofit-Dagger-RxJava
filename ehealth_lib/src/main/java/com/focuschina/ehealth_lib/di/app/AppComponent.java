@@ -18,7 +18,6 @@ import com.focuschina.ehealth_lib.util.BmpUtil;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 
 /**
@@ -37,7 +36,7 @@ public interface AppComponent {
     Context context();
 
     @UnEncrypted
-    Retrofit UnEncryptedRetrofit(); //提供网络服务 非加密的
+    Retrofit unEncryptedRetrofit(); //提供网络服务 非加密的
 
     Retrofit retrofit(); //提供网络服务
 
@@ -53,7 +52,8 @@ public interface AppComponent {
 
     ActivityMgt activityMgt(); //提供activity manager
 
-    BmpUtil bmpUtil(); //提供图片处理类
+    @ForApp
+    BmpUtil bmpUtil(); //提供图片处理类 生命周期绑定application
 
     HspsDataSource hspsDataSource(); //提供基础服务
 }

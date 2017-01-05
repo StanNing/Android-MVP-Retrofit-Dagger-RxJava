@@ -1,11 +1,11 @@
 package com.focuschina.ehealth_lib.view.customlistener;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.AbsListView;
 
+import com.bumptech.glide.RequestManager;
+import com.focuschina.ehealth_lib.di.activity.ForActivity;
 import com.focuschina.ehealth_lib.util.BmpUtil;
-import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -19,21 +19,23 @@ import javax.inject.Inject;
  */
 public class FastScrollListener implements AbsListView.OnScrollListener {
 
-    private final Context context;
-    private final Picasso picasso;
+    //    private final Context context;
+    //    private final Picasso picasso;
+    private final RequestManager glide;
 
     @Inject
-    public FastScrollListener(@NonNull Context context, @NonNull BmpUtil bmpUtil) {
-        this.context = context;
-        this.picasso = bmpUtil.get();
+    public FastScrollListener(@NonNull @ForActivity BmpUtil bmpUtil) {
+        this.glide = bmpUtil.get();
     }
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         if (scrollState == SCROLL_STATE_IDLE || scrollState == SCROLL_STATE_TOUCH_SCROLL) {
-            picasso.resumeTag(context);
+//            picasso.resumeTag(context);
+            glide.resumeRequests();
         } else {
-            picasso.pauseTag(context);
+//            picasso.pauseTag(context);
+            glide.pauseRequests();
         }
     }
 

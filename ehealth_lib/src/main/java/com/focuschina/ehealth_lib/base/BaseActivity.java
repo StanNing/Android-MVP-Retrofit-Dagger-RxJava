@@ -15,6 +15,7 @@ import com.focuschina.ehealth_lib.EhApplication;
 import com.focuschina.ehealth_lib.di.activity.ActivityModule;
 import com.focuschina.ehealth_lib.di.activity.BaseActivityComponent;
 import com.focuschina.ehealth_lib.di.activity.DaggerBaseActivityComponent;
+import com.focuschina.ehealth_lib.di.activity.ForActivity;
 import com.focuschina.ehealth_lib.mgt.ActivityMgt;
 import com.focuschina.ehealth_lib.util.BmpUtil;
 import com.jakewharton.rxbinding.view.RxView;
@@ -44,6 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     ActivityMgt activityMgt;
 
     @Inject
+    @ForActivity
     protected BmpUtil bmpUtil;
 
     private BaseActivityComponent baseActivityComponent;
@@ -131,7 +133,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     protected void onDestroy() {
         destroy();
-        bmpUtil.cancelTag(this); //回收标记，防止内存泄露
         activityMgt.remove(this);
         super.onDestroy();
     }

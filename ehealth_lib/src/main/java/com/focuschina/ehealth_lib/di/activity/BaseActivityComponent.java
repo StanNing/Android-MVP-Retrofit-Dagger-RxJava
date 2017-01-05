@@ -6,7 +6,8 @@ import android.widget.Toast;
 import com.focuschina.ehealth_lib.base.BaseActivity;
 import com.focuschina.ehealth_lib.base.BaseFragment;
 import com.focuschina.ehealth_lib.di.app.AppComponent;
-import com.focuschina.ehealth_lib.http.TasksRepository;
+import com.focuschina.ehealth_lib.task.TasksRepository;
+import com.focuschina.ehealth_lib.util.BmpUtil;
 import com.focuschina.ehealth_lib.view.customlistener.FastScrollListener;
 
 import dagger.Component;
@@ -28,4 +29,7 @@ public interface BaseActivityComponent {
     TasksRepository tasksRepository();
 
     FastScrollListener fastScrollListener(); //提供快速滑动不重复加载图片的监听器
+
+    @ForActivity
+    BmpUtil bmpUtil(); //提供图片处理类 生命周期绑定activity
 }

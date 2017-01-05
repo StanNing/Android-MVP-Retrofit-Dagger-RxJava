@@ -1,10 +1,14 @@
 package com.focuschina.ehealth_lib.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.DrawableRes;
+import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 
 /**
  * Copyright (C) Focus Technology
@@ -17,9 +21,19 @@ import com.squareup.picasso.Picasso;
 public class BmpUtil {
 
     private Context appContext;
+    private Activity activity;
+    private Fragment fragment;
 
     public BmpUtil(Context context) {
         this.appContext = context;
+    }
+
+    public BmpUtil(Activity activity) {
+        this.activity = activity;
+    }
+
+    public BmpUtil(Fragment fragment) {
+        this.fragment = fragment;
     }
 
     /**
@@ -30,12 +44,21 @@ public class BmpUtil {
      * @param <T>     容器类型
      */
     public <T extends ImageView> void displayImg(String url, T imgView) {
-        //.fit() 如果调用了该API, Picasso会对图片的大小及ImageView进行测量,
-        // 计算出最佳的大小及最佳的图片质量来进行图片展示,减少内存,并对视图没有影响;
-        Picasso.with(appContext)
+        get()
                 .load(url)
-                .noPlaceholder()
-                .fit() //智能展示图片
+                .into(imgView);
+    }
+
+    /**
+     * 显示gif图片
+     *
+     * @param gifResId gif图片资源id
+     * @param imgView  容器
+     * @param <T>      容器类型
+     */
+    public <T extends ImageView> void displayGif(@DrawableRes int gifResId, T imgView) {
+        get()
+                .load(gifResId)
                 .into(imgView);
     }
 
@@ -49,7 +72,7 @@ public class BmpUtil {
      * @param <T>          容器类型
      */
     public <T extends ImageView> void displayImg(String url, T imgView, int loadingImgId, int errorImgId) {
-        Picasso.with(appContext)
+        get()
                 .load(url)
                 .placeholder(loadingImgId)
                 .error(errorImgId)
@@ -66,31 +89,24 @@ public class BmpUtil {
      * @param <T>     容器类型
      */
     public <T extends ImageView> void resizeImg(String url, T imgView, int x, int y) {
-        Picasso.with(appContext)
+        get()
                 .load(url)
-                .noPlaceholder()
-                .resize(x, y)
-                .onlyScaleDown()
+                .override(x, y)
                 .into(imgView);
     }
 
     /**
-     * 获取Picasso
+     * 获取Glide 使用优先级 fragment > activity > application
      *
-     * @return Picasso
+     * @return RequestManager
      */
-    public Picasso get() {
-        return Picasso.with(appContext);
-    }
-
-    /**
-     * 目前对lv中快速滑动统一设置tag标记，用于处理重复加载图片，使用的tag为当前act的context
-     * 此方法是对快速滑动过程中设置的tag进行回收，防止内存泄露
-     *
-     * @param context Activity context
-     */
-    public void cancelTag(Context context) {
-        get().cancelTag(context);
+    public RequestManager get() {
+        if (null != fragment) {
+            return Glide.with(fragment);
+        } else if (null != activity) {
+            return Glide.with(activity);
+        }
+        return Glide.with(appContext);
     }
 
     /**

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -96,8 +98,12 @@ public abstract class BaseDialog extends DialogFragment {
         if (null != window) window.setWindowAnimations(animationId);
     }
 
-    public void show() {
-        this.show(getActivity().getSupportFragmentManager(), getDialogTag());
+    public void show(FragmentActivity activity) {
+        this.show(activity.getSupportFragmentManager(), getDialogTag());
+    }
+
+    public void show(Fragment fragment) {
+        this.show(fragment.getFragmentManager(), getDialogTag());
     }
 
     protected abstract String getDialogTag(); //获取dialog的标签

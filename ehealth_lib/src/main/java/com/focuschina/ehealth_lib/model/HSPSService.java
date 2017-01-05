@@ -1,6 +1,5 @@
 package com.focuschina.ehealth_lib.model;
 
-import com.focuschina.ehealth_lib.config.AppConfig;
 import com.google.gson.JsonObject;
 
 import java.io.Serializable;

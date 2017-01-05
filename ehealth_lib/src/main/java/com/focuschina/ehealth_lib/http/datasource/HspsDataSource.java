@@ -4,10 +4,10 @@ import com.focuschina.ehealth_lib.base.BaseView;
 import com.focuschina.ehealth_lib.config.AppConfig;
 import com.focuschina.ehealth_lib.config.SpHelper;
 import com.focuschina.ehealth_lib.di.http.UnEncrypted;
-import com.focuschina.ehealth_lib.http.TasksRepository;
 import com.focuschina.ehealth_lib.http.api.BaseApi;
 import com.focuschina.ehealth_lib.http.async.Async;
 import com.focuschina.ehealth_lib.http.async.AsyncHandler;
+import com.focuschina.ehealth_lib.task.TasksRepository;
 import com.focuschina.ehealth_lib.model.HSPSService;
 import com.focuschina.ehealth_lib.util.AppUtil;
 import com.focuschina.ehealth_lib.util.JsonUtil;
@@ -36,6 +36,13 @@ public class HspsDataSource implements BaseDataSource<HSPSService> {
 
     private HSPSService mHSPSService = null; //服务地址配置类,私有不允许公开,获取调用下面的方法
 
+    @Inject
+    public HspsDataSource(@UnEncrypted Retrofit retrofit, AppConfig appConfig, SpHelper spHelper) {
+        this.retrofit = retrofit;
+        this.appConfig = appConfig;
+        this.spHelper = spHelper;
+    }
+
     /**
      * 获取服务对象
      * 如果不走配置文件，直接return new HSPSService();空对象
@@ -49,13 +56,6 @@ public class HspsDataSource implements BaseDataSource<HSPSService> {
         }
         return mHSPSService;
 //        return new HSPSService();
-    }
-
-    @Inject
-    public HspsDataSource(@UnEncrypted Retrofit retrofit, AppConfig appConfig, SpHelper spHelper) {
-        this.retrofit = retrofit;
-        this.appConfig = appConfig;
-        this.spHelper = spHelper;
     }
 
     @Override
@@ -128,7 +128,18 @@ public class HspsDataSource implements BaseDataSource<HSPSService> {
     @Override
     public void update() {
         LogUtil.test("update hos data");
-        complete();
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    sleep(10000);
+                    complete();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     @Override

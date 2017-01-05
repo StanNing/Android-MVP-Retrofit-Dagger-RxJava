@@ -1,4 +1,4 @@
-package com.focuschina.ehealth_lib.http;
+package com.focuschina.ehealth_lib.task;
 
 import com.focuschina.ehealth_lib.util.LogUtil;
 
@@ -32,6 +32,21 @@ public class TasksRepository {
         this.lifecycleSubscription = new CompositeSubscription();
     }
 
+    public void addTask(TaskType taskType, Subscription subscription) {
+        switch (taskType) {
+            case Lifecycle:
+                lifecycleSubscription.add(subscription);
+                break;
+            case BG:
+                addBgTask(subscription);
+                break;
+            case Default:
+            default:
+                defaultSubscription.add(subscription);
+                break;
+        }
+    }
+
     /**
      * 后台任务用静态持有
      *
@@ -45,27 +60,20 @@ public class TasksRepository {
         return bgSubscription;
     }
 
+    /**
+     * 添加后台任务
+     *
+     * @param subscription 任务订阅
+     */
     public static void addBgTask(Subscription subscription) {
         bgNewInstance().add(subscription);
     }
 
-    public static void disposeBgTask(){
-        bgNewInstance().unsubscribe();
-        LogUtil.i(TAG, "TasksRepository-BG Capacity: " + bgSubscription.hasSubscriptions());
-    }
-
-    public void addTask(TaskType taskType, Subscription subscription) {
-        switch (taskType) {
-            case Lifecycle:
-                lifecycleSubscription.add(subscription);
-                break;
-            case BG:
-                addBgTask(subscription);
-                break;
-            default:
-                defaultSubscription.add(subscription);
-                break;
-        }
+    /**
+     * 移除后台任务
+     */
+    public static void disposeBgTask() {
+        if (bgNewInstance().isUnsubscribed()) bgNewInstance().unsubscribe();
     }
 
     /**
@@ -81,17 +89,29 @@ public class TasksRepository {
      * 移除跟生命周期绑定的任务
      */
     public void disposeByLifecycle() {
-        lifecycleSubscription.unsubscribe();
+        if (lifecycleSubscription.isUnsubscribed()) {
+            lifecycleSubscription.unsubscribe();
+        }
         checkCurCapacity();
     }
 
     /**
-     * 检查当前任务状态
+     * 检查当前任务状态 log输出
      */
-    public void checkCurCapacity() {
+    private void checkCurCapacity() {
         LogUtil.i(TAG, "TasksRepository-Default Capacity: " + defaultSubscription.hasSubscriptions());
         LogUtil.i(TAG, "TasksRepository-Lifecycle Capacity: " + lifecycleSubscription.hasSubscriptions());
+        checkBgTask();
+    }
+
+    /**
+     * 检查后台任务状态
+     *
+     * @return 是否存在任务
+     */
+    public boolean checkBgTask() {
         LogUtil.i(TAG, "TasksRepository-BG Capacity: " + bgSubscription.hasSubscriptions());
+        return bgSubscription.hasSubscriptions();
     }
 
 }
