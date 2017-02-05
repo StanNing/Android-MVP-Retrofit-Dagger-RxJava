@@ -10,21 +10,21 @@ package com.focuschina.ehealth_lib.http.datasource;
  */
 public interface BaseDataSource<T> {
 
-    void start();
+    void start(); //开始
 
-    void save(T t);
+    void save(T t); //保存
 
-    T getSource();
+    T getSource(); //获取
 
-    void update();
+    void update(); //更新
 
-    void complete();
+    void complete(); //完成
 
-    void delete(Type type);
+    void delete(Type type); //删除
 
-    void allClear();
+    void allClear(); //清空
 
-    enum Type{
+    enum Type {
 
     }
 }

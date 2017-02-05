@@ -13,6 +13,7 @@ import com.focuschina.ehealth_lib.http.datasource.HspsDataSource;
 import com.focuschina.ehealth_lib.mgt.ActivityMgt;
 import com.focuschina.ehealth_lib.model.account.DaoMaster;
 import com.focuschina.ehealth_lib.model.account.DaoSession;
+import com.focuschina.ehealth_lib.task.RxBus;
 import com.focuschina.ehealth_lib.util.BmpUtil;
 
 import javax.inject.Singleton;
@@ -56,4 +57,6 @@ public interface AppComponent {
     BmpUtil bmpUtil(); //提供图片处理类 生命周期绑定application
 
     HspsDataSource hspsDataSource(); //提供基础服务
+
+    RxBus rxBus(); //提供事件总线控制
 }

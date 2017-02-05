@@ -6,6 +6,7 @@ import android.content.Context;
 import com.focuschina.ehealth_lib.config.AppConfig;
 import com.focuschina.ehealth_lib.config.SpHelper;
 import com.focuschina.ehealth_lib.mgt.ActivityMgt;
+import com.focuschina.ehealth_lib.task.RxBus;
 import com.focuschina.ehealth_lib.util.BmpUtil;
 
 import javax.inject.Singleton;
@@ -17,8 +18,8 @@ import dagger.Provides;
  * Copyright (C) Focus Technology
  *
  * @author Ning jiajun
- * @ClassName:
- * @Description: TODO: (这里用一句话描述这个类的作用)
+ * @ClassName: AppModule
+ * @Description: TODO: (app 依赖对象module)
  * @date 2016/11/17 下午4:35
  */
 @Module
@@ -61,4 +62,9 @@ public class AppModule {
         return new BmpUtil(context);
     }
 
+    @Provides
+    @Singleton
+    RxBus provideRxBus() {
+        return RxBus.getDefault();
+    }
 }

@@ -52,7 +52,8 @@ public class NetModule {
         LogUtil.i(LogUtil.TAG_URL, "REQ:" + baseParam[1] + orgReq);
         String encodeReqParam = CodeUtil.encode(baseParam[1] + orgReq); //入参加密
 
-        RequestBody encodeRequestBody = RequestBody.create(originalRequest.body().contentType(), encodeReqParam); //1
+        RequestBody encodeRequestBody = RequestBody.create(originalRequest.body().contentType(),
+                encodeReqParam != null ? encodeReqParam : ""); //1
 
         Request encodeRequest = originalRequest
                 .newBuilder()
@@ -67,12 +68,13 @@ public class NetModule {
         LogUtil.i(LogUtil.TAG_URL, "RSP:" + decodedRsp);
 
         return originalResponse.newBuilder()
-                .body(ResponseBody.create(originalResponse.body().contentType(), decodedRsp))
+                .body(ResponseBody.create(originalResponse.body().contentType(), decodedRsp != null ? decodedRsp : ""))
                 .build();
     };
 
     /**
      * 对于传入的地址做改造，拆分成2部分，基础参数部分放到后面的业务参数中一起加密处理
+     *
      * @param url 接口地址 + 公共参数
      * @return 返回 String[] - [0]:地址； [1]:公共参数
      */

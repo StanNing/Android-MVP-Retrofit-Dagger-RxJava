@@ -7,8 +7,9 @@ import com.focuschina.ehealth_lib.di.http.UnEncrypted;
 import com.focuschina.ehealth_lib.http.api.BaseApi;
 import com.focuschina.ehealth_lib.http.async.Async;
 import com.focuschina.ehealth_lib.http.async.AsyncHandler;
-import com.focuschina.ehealth_lib.task.TasksRepository;
 import com.focuschina.ehealth_lib.model.HSPSService;
+import com.focuschina.ehealth_lib.task.RxBus;
+import com.focuschina.ehealth_lib.task.TasksRepository;
 import com.focuschina.ehealth_lib.util.AppUtil;
 import com.focuschina.ehealth_lib.util.JsonUtil;
 import com.focuschina.ehealth_lib.util.LogUtil;
@@ -29,6 +30,12 @@ import rx.Subscription;
  */
 @Singleton
 public class HspsDataSource implements BaseDataSource<HSPSService> {
+
+    public static final String TAG = "HspsDataSource";
+
+    public enum EventType {
+        success, failed, interrupt
+    }
 
     private Retrofit retrofit;
     private AppConfig appConfig;
@@ -144,7 +151,9 @@ public class HspsDataSource implements BaseDataSource<HSPSService> {
 
     @Override
     public void complete() {
+        LogUtil.test("hsps complete");
         TasksRepository.disposeBgTask();
+        RxBus.getDefault().postSticky(EventType.success, TAG);
     }
 
     @Override

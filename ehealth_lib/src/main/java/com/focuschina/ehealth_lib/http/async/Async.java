@@ -31,8 +31,7 @@ public class Async {
     public static <T, V extends BaseView> Subscription start(Observable<T> observable,
                                                              final AsyncHandler<T, V> asyncHandler) {
         return observable
-                .subscribeOn(Schedulers.io()) //被订阅者发生的线程
-                .observeOn(AndroidSchedulers.mainThread()) //消费者运行的线程
+                .compose(applySchedulers())
                 .subscribe(
                         asyncHandler::onNext, //成功响应
                         asyncHandler::onError, //错误异常
@@ -50,8 +49,7 @@ public class Async {
         final AsyncHandler<T, V> asyncHandler = new AsyncHandler<T, V>() { //无需重写回调处理
         };
         return observable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .compose(applySchedulers())
                 .subscribe(
                         asyncHandler::onNext,
                         asyncHandler::onError,
@@ -73,8 +71,7 @@ public class Async {
                                                                     @NonNull Observable<Response<T>> obT,
                                                                     @NonNull final Observable<Response<K>> obK) {
         return obT
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .compose(applySchedulers())
                 .flatMap(
                         response -> response.getRspCode() == Response.SUCCESS ? //响应是否成功
                                 obK //成功则进入下一个请求
@@ -88,6 +85,19 @@ public class Async {
                         asyncHandler::onError, //错误异常
                         asyncHandler::onCompleted);
     }
+
+    /**
+     * 统一调度器
+     *
+     * @param <T> 变形类型
+     * @return 返回变形
+     */
+    public static <T> Observable.Transformer<T, T> applySchedulers() {
+        return observable -> observable
+                .subscribeOn(Schedulers.io()) //被订阅者发生的线程
+                .observeOn(AndroidSchedulers.mainThread());  //消费者运行的线程
+    }
+
 
 }
 

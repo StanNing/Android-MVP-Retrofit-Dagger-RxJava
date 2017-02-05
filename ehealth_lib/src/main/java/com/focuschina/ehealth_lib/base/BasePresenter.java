@@ -19,9 +19,9 @@ package com.focuschina.ehealth_lib.base;
 /**
  *
  */
-public interface BasePresenter<T extends BaseView> {
+public interface BasePresenter<V extends BaseView> {
 
-    void attachView(T view);
+    void attachView(V view);
 
     void detachView();
 }

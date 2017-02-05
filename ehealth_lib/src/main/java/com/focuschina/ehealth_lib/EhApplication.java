@@ -6,7 +6,7 @@ import com.focuschina.ehealth_lib.di.app.AppComponent;
 import com.focuschina.ehealth_lib.di.app.AppModule;
 import com.focuschina.ehealth_lib.di.app.DaggerAppComponent;
 import com.focuschina.ehealth_lib.mgt.ActivityMgt;
-import com.focuschina.ehealth_lib.util.LogUtil;
+import com.focuschina.ehealth_lib.task.RxBus;
 
 import javax.inject.Inject;
 
@@ -22,13 +22,13 @@ public class EhApplication extends Application {
 
     private AppComponent mAppComponent;
 
-    @Inject
-    ActivityMgt activityMgt;
+    @Inject ActivityMgt activityMgt;
+
+    @Inject RxBus rxBus;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        LogUtil.test("on app create");
         initInjector();
     }
 
@@ -49,6 +49,7 @@ public class EhApplication extends Application {
     public void exit() {
         try {
             activityMgt.clear();
+            rxBus.removeAllStickyEvents(); // 移除所有Sticky事件
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
