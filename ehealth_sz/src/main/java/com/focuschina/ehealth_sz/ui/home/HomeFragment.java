@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.focuschina.ehealth_lib.base.BaseFragment;
+import com.focuschina.ehealth_lib.di.activity.ForActivity;
 import com.focuschina.ehealth_lib.model.hosdata.Dep;
 import com.focuschina.ehealth_lib.util.AppUtil;
 import com.focuschina.ehealth_lib.util.BmpUtil;
@@ -34,6 +35,7 @@ public class HomeFragment extends BaseFragment implements MainContract.HomeView 
     HomePresenter homePresenter;
 
     @Inject
+    @ForActivity
     BmpUtil bmpUtil;
 
     LayoutInflater inflater;
@@ -91,7 +93,8 @@ public class HomeFragment extends BaseFragment implements MainContract.HomeView 
 
     @Override
     protected void initData() {
-        homePresenter.fetchDepListData(); //获取数据
+        homePresenter.checkTask(); //检查任务
+        homePresenter.fetchDepListData(); //获取科室数据
     }
 
     /**

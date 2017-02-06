@@ -34,6 +34,8 @@ public interface MainContract {
         void fetchDepListData(); //获取首页展示的科室列表数据
 
         void fetchEachDepData(List<Dep> depList); //获取单个科室数据
+
+        void checkTask(); //检查任务
     }
 
     interface IMinePresenter extends BasePresenter<MineView> {

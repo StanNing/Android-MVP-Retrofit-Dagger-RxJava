@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.focuschina.ehealth_lib.base.BaseActivity;
+import com.focuschina.ehealth_lib.base.BaseDialog;
 import com.focuschina.ehealth_sz.R;
+import com.focuschina.ehealth_sz.ui.splash.dialog.LoadingDialog;
 
 /**
  * Copyright (C) Focus Technology
@@ -120,4 +122,41 @@ public abstract class BaseToolBarActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private volatile LoadingDialog loadingDialog; //加载进度条
+    private volatile int showCount = 0;
+
+    @Override
+    protected BaseDialog getLoadingDialog() {
+        if (null == loadingDialog) {
+            synchronized (LoadingDialog.class) {
+                if (null == loadingDialog) {
+                    showCount = 0;
+                    loadingDialog = LoadingDialog.newInstance(super.bmpUtil);
+                }
+            }
+        }
+        return loadingDialog;
+    }
+
+    @Override
+    public synchronized void showProgress() {
+        synchronized (LoadingDialog.class) {
+            if (showCount == 0) {
+                super.showProgress();
+            }
+            showCount++;
+        }
+    }
+
+    @Override
+    public void hideProgress() {
+        synchronized (LoadingDialog.class) {
+            showCount--;
+            if (showCount > 0) {
+                return;
+            }
+            super.hideProgress();
+            loadingDialog = null;
+        }
+    }
 }

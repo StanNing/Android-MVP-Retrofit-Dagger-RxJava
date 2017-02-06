@@ -1,7 +1,7 @@
 package com.focuschina.ehealth_sz.ui.home;
 
 import com.focuschina.ehealth_lib.config.AppConfig;
-import com.focuschina.ehealth_lib.http.TasksRepository;
+import com.focuschina.ehealth_lib.task.TasksRepository;
 
 import javax.inject.Inject;
 
