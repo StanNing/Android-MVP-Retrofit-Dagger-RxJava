@@ -40,14 +40,16 @@ public class HspsDataSource implements BaseDataSource<HSPSService> {
     private Retrofit retrofit;
     private AppConfig appConfig;
     private SpHelper spHelper;
+    private RxBus rxBus;
 
     private HSPSService mHSPSService = null; //服务地址配置类,私有不允许公开,获取调用下面的方法
 
     @Inject
-    public HspsDataSource(@UnEncrypted Retrofit retrofit, AppConfig appConfig, SpHelper spHelper) {
+    public HspsDataSource(@UnEncrypted Retrofit retrofit, AppConfig appConfig, SpHelper spHelper, RxBus rxBus) {
         this.retrofit = retrofit;
         this.appConfig = appConfig;
         this.spHelper = spHelper;
+        this.rxBus = rxBus;
     }
 
     /**
@@ -153,7 +155,7 @@ public class HspsDataSource implements BaseDataSource<HSPSService> {
     public void complete() {
         LogUtil.test("hsps complete");
         TasksRepository.disposeBgTask();
-        RxBus.getDefault().postSticky(EventType.success, TAG);
+        rxBus.postSticky(EventType.success, TAG);
     }
 
     @Override
