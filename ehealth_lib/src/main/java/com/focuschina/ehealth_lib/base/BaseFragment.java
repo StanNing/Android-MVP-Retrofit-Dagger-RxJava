@@ -87,12 +87,16 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     @Override
     public void showProgress() {
-
+        if (activity instanceof BaseActivity) {
+            ((BaseActivity) activity).showProgress();
+        }
     }
 
     @Override
     public void hideProgress() {
-
+        if (activity instanceof BaseActivity) {
+            ((BaseActivity) activity).hideProgress();
+        }
     }
 
     @Override

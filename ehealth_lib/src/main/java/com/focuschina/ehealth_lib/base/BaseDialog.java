@@ -99,11 +99,25 @@ public abstract class BaseDialog extends DialogFragment {
     }
 
     public void show(FragmentActivity activity) {
-        this.show(activity.getSupportFragmentManager(), getDialogTag());
+        if (null != this.getDialog() && this.getDialog().isShowing()) {
+            return;
+        }
+        show(activity.getSupportFragmentManager(), getDialogTag());
     }
 
     public void show(Fragment fragment) {
-        this.show(fragment.getFragmentManager(), getDialogTag());
+        if (null != this.getDialog() && this.getDialog().isShowing()) {
+            return;
+        }
+        show(fragment.getFragmentManager(), getDialogTag());
+    }
+
+    @Override
+    public void dismiss() {
+        if (null == this.getDialog() || !this.getDialog().isShowing()) {
+            return;
+        }
+        super.dismiss();
     }
 
     protected abstract String getDialogTag(); //获取dialog的标签

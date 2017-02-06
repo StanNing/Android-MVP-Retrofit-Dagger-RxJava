@@ -65,6 +65,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     protected abstract void bindView(Bundle bundle);
 
+    protected abstract BaseDialog getLoadingDialog();
+
     /**
      * 初始化需要依赖
      */
@@ -108,12 +110,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     public void showProgress() {
-
+        getLoadingDialog().show(this);
     }
 
     @Override
     public void hideProgress() {
-
+        getLoadingDialog().dismiss();
     }
 
     @Override

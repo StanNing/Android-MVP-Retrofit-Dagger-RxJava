@@ -154,7 +154,6 @@ public class RxBus {
 
         @Override
         public void onCompleted() {
-            receiver.onReceiveFinish();
         }
 
         @Override

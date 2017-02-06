@@ -10,6 +10,4 @@ package com.focuschina.ehealth_lib.task;
  */
 public interface RxReceiver<E> {
     void onReceiveEvent(E event) throws Exception;
-
-    void onReceiveFinish();
 }
